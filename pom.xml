@@ -91,73 +91,6 @@
         <artifactId>maven-surefire-plugin</artifactId>
         <version>3.0.0-M5</version>
       </plugin>
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-shade-plugin</artifactId>
-        <version>3.2.4</version>
-        <executions>
-          <execution>
-            <phase>package</phase>
-            <goals>
-              <goal>shade</goal>
-            </goals>
-            <configuration>
-              <shadedArtifactAttached>true</shadedArtifactAttached>
-            </configuration>
-          </execution>
-        </executions>
-      </plugin>
-      <!--      <plugin>-->
-      <!--        <groupId>org.apache.maven.plugins</groupId>-->
-      <!--        <artifactId>maven-jar-plugin</artifactId>-->
-      <!--        <version>3.2.0</version>-->
-      <!--        <configuration>-->
-      <!--          <archive>-->
-      <!--            <manifest>-->
-      <!--              <addClasspath>true</addClasspath>-->
-      <!--              <mainClass>${main.class}</mainClass>-->
-      <!--            </manifest>-->
-      <!--          </archive>-->
-      <!--        </configuration>-->
-      <!--      </plugin>-->
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-assembly-plugin</artifactId>
-        <version>3.3.0</version>
-        <configuration>
-          <descriptors>
-            <descriptor>src/assembly/test-jar-with-dependencies.xml</descriptor>
-          </descriptors>
-        </configuration>
-        <executions>
-          <execution>
-            <id>make-test-jar</id>
-            <phase>package</phase>
-            <goals>
-              <goal>single</goal>
-            </goals>
-          </execution>
-        </executions>
-        <!--        <executions>-->
-        <!--          <execution>-->
-        <!--            <id>make-assembly</id>-->
-        <!--            <phase>package</phase>-->
-        <!--            <goals>-->
-        <!--              <goal>single</goal>-->
-        <!--            </goals>-->
-        <!--            <configuration>-->
-        <!--              <archive>-->
-        <!--                <manifest>-->
-        <!--                  <mainClass>${main.class}</mainClass>-->
-        <!--                </manifest>-->
-        <!--              </archive>-->
-        <!--              <descriptorRefs>-->
-        <!--                <descriptorRef>jar-with-dependencies</descriptorRef>-->
-        <!--              </descriptorRefs>-->
-        <!--            </configuration>-->
-        <!--          </execution>-->
-        <!--        </executions>-->
-      </plugin>
     </plugins>
   </build>
 
@@ -187,7 +120,7 @@
                 <goals>
                   <goal>test</goal>
                 </goals>
-                <phase>integration-test</phase>
+                <phase>test</phase>
               </execution>
             </executions>
             <configuration>
@@ -197,11 +130,6 @@
               <buildArgs>
                 <buildArg>--no-fallback</buildArg>
               </buildArgs>
-              <classpath>
-                <param>
-                  ${project.build.directory}/${project.artifactId}-${project.version}-shaded.jar
-                </param>
-              </classpath>
             </configuration>
           </plugin>
         </plugins>
