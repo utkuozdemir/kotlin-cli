@@ -1,0 +1,212 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+
+  <modelVersion>4.0.0</modelVersion>
+
+  <groupId>org.utkuozdemir</groupId>
+  <artifactId>kotlin-cli</artifactId>
+  <version>0.1.0</version>
+  <packaging>jar</packaging>
+
+  <name>org.utkuozdemir kotlin-cli</name>
+
+  <properties>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <kotlin.code.style>official</kotlin.code.style>
+    <kotlin.compiler.incremental>true</kotlin.compiler.incremental>
+    <kotlin.version>1.5.32</kotlin.version>
+    <junit.jupiter.version>5.8.2</junit.jupiter.version>
+    <graalvm.native.version>0.9.8</graalvm.native.version>
+    <main.class>org.utkuozdemir.HelloKt</main.class>
+  </properties>
+
+  <dependencies>
+    <dependency>
+      <groupId>org.jetbrains.kotlin</groupId>
+      <artifactId>kotlin-stdlib</artifactId>
+      <version>${kotlin.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.junit.jupiter</groupId>
+      <artifactId>junit-jupiter-api</artifactId>
+      <version>${junit.jupiter.version}</version>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.junit.jupiter</groupId>
+      <artifactId>junit-jupiter-engine</artifactId>
+      <version>${junit.jupiter.version}</version>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.junit.jupiter</groupId>
+      <artifactId>junit-jupiter-params</artifactId>
+      <version>${junit.jupiter.version}</version>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.junit.platform</groupId>
+      <artifactId>junit-platform-launcher</artifactId>
+      <version>1.8.2</version>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.graalvm.buildtools</groupId>
+      <artifactId>junit-platform-native</artifactId>
+      <version>${graalvm.native.version}</version>
+      <scope>test</scope>
+    </dependency>
+  </dependencies>
+
+  <build>
+    <sourceDirectory>src/main/kotlin</sourceDirectory>
+    <testSourceDirectory>src/test/kotlin</testSourceDirectory>
+
+    <plugins>
+      <plugin>
+        <groupId>org.jetbrains.kotlin</groupId>
+        <artifactId>kotlin-maven-plugin</artifactId>
+        <version>${kotlin.version}</version>
+        <executions>
+          <execution>
+            <id>compile</id>
+            <phase>compile</phase>
+            <goals>
+              <goal>compile</goal>
+            </goals>
+          </execution>
+          <execution>
+            <id>test-compile</id>
+            <phase>test-compile</phase>
+            <goals>
+              <goal>test-compile</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-surefire-plugin</artifactId>
+        <version>3.0.0-M5</version>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-shade-plugin</artifactId>
+        <version>3.2.4</version>
+        <executions>
+          <execution>
+            <phase>package</phase>
+            <goals>
+              <goal>shade</goal>
+            </goals>
+            <configuration>
+              <shadedArtifactAttached>true</shadedArtifactAttached>
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>
+      <!--      <plugin>-->
+      <!--        <groupId>org.apache.maven.plugins</groupId>-->
+      <!--        <artifactId>maven-jar-plugin</artifactId>-->
+      <!--        <version>3.2.0</version>-->
+      <!--        <configuration>-->
+      <!--          <archive>-->
+      <!--            <manifest>-->
+      <!--              <addClasspath>true</addClasspath>-->
+      <!--              <mainClass>${main.class}</mainClass>-->
+      <!--            </manifest>-->
+      <!--          </archive>-->
+      <!--        </configuration>-->
+      <!--      </plugin>-->
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-assembly-plugin</artifactId>
+        <version>3.3.0</version>
+        <configuration>
+          <descriptors>
+            <descriptor>src/assembly/test-jar-with-dependencies.xml</descriptor>
+          </descriptors>
+        </configuration>
+        <executions>
+          <execution>
+            <id>make-test-jar</id>
+            <phase>package</phase>
+            <goals>
+              <goal>single</goal>
+            </goals>
+          </execution>
+        </executions>
+        <!--        <executions>-->
+        <!--          <execution>-->
+        <!--            <id>make-assembly</id>-->
+        <!--            <phase>package</phase>-->
+        <!--            <goals>-->
+        <!--              <goal>single</goal>-->
+        <!--            </goals>-->
+        <!--            <configuration>-->
+        <!--              <archive>-->
+        <!--                <manifest>-->
+        <!--                  <mainClass>${main.class}</mainClass>-->
+        <!--                </manifest>-->
+        <!--              </archive>-->
+        <!--              <descriptorRefs>-->
+        <!--                <descriptorRef>jar-with-dependencies</descriptorRef>-->
+        <!--              </descriptorRefs>-->
+        <!--            </configuration>-->
+        <!--          </execution>-->
+        <!--        </executions>-->
+      </plugin>
+    </plugins>
+  </build>
+
+  <profiles>
+    <profile>
+      <id>native</id>
+      <activation>
+        <activeByDefault>true</activeByDefault>
+      </activation>
+      <build>
+        <plugins>
+          <plugin>
+            <groupId>org.graalvm.buildtools</groupId>
+            <artifactId>native-maven-plugin</artifactId>
+            <version>${graalvm.native.version}</version>
+            <extensions>true</extensions>
+            <executions>
+              <execution>
+                <id>build-native</id>
+                <goals>
+                  <goal>build</goal>
+                </goals>
+                <phase>package</phase>
+              </execution>
+              <execution>
+                <id>test-native</id>
+                <goals>
+                  <goal>test</goal>
+                </goals>
+                <phase>integration-test</phase>
+              </execution>
+            </executions>
+            <configuration>
+              <skip>false</skip>
+              <imageName>${project.artifactId}</imageName>
+              <mainClass>${main.class}</mainClass>
+              <buildArgs>
+                <buildArg>--no-fallback</buildArg>
+              </buildArgs>
+              <classpath>
+                <param>
+                  ${project.build.directory}/${project.artifactId}-${project.version}-shaded.jar
+                </param>
+              </classpath>
+            </configuration>
+          </plugin>
+        </plugins>
+      </build>
+    </profile>
+  </profiles>
+
+</project>
