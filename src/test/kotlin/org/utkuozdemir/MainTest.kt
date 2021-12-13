@@ -3,7 +3,7 @@ package org.utkuozdemir
 import org.junit.jupiter.api.Test
 
 
-class HelloTest {
+class MainTest {
 
     @Test
     fun testHello() {

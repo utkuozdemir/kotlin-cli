@@ -1,18 +1,7 @@
-package org.utkuozdemir
+package org.utkuozdemir.command
 
 import com.github.ajalt.clikt.core.CliktCommand
-import com.github.ajalt.clikt.core.subcommands
-import com.github.ajalt.clikt.parameters.options.default
-import com.github.ajalt.clikt.parameters.options.option
 import java.nio.file.Files
-
-fun main(args: Array<String>) = KotlinCli().subcommands(FileIo(), NetworkIo()).main(args)
-
-
-class KotlinCli : CliktCommand() {
-    override fun run() {
-    }
-}
 
 class FileIo : CliktCommand() {
     override fun run() {
@@ -28,15 +17,5 @@ class FileIo : CliktCommand() {
             Files.delete(tempFile)
             println("Deleted file $tempFile")
         }
-    }
-}
-
-class NetworkIo : CliktCommand("does network IO") {
-    private val defaultUrl = "https://google.com"
-
-    val url by option(help = "The URL to make request to $defaultUrl").default(defaultUrl)
-
-    override fun run() {
-        println("Request to $url")
     }
 }
