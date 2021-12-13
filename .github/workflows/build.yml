@@ -1,0 +1,36 @@
+---
+name: Build
+
+on:
+  push:
+    branches:
+      - master
+      - renovate/**
+    paths-ignore:
+      - "**.md"
+      - ".gitignore"
+      - "renovate.json"
+  pull_request:
+    branches:
+      - master
+    paths-ignore:
+      - "**.md"
+      - ".gitignore"
+      - "renovate.json"
+
+concurrency:
+  group: build-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  lint-and-build:
+    runs-on: ubuntu-20.04
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2.4.0
+      - uses: DeLaGuardo/setup-graalvm@5.0
+        with:
+          graalvm: 21.3.0
+          java: java17
+      - name: Build
+        run: ./mvnw clean package
