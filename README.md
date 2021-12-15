@@ -35,10 +35,20 @@ List of things I have tried so far:
 
 ## Building
 
-Make sure you have [GraalVM >=21.3.0](https://www.graalvm.org/downloads/) installed and
-your `JAVA_HOME` and `GRAALVM_HOME` env variables are set to point to it.  
-(if you are using Mac & Homebrew, install simply
-via `brew install --cask graalvm/tap/graalvm-ce-java17`)
+Make sure you have [GraalVM >=21.3.0](https://www.graalvm.org/downloads/) installed.
+
+If you are using Mac & Homebrew:
+```bash
+brew install --cask graalvm/tap/graalvm-ce-java17 
+sudo xattr -r -d com.apple.quarantine /Library/Java/JavaVirtualMachines/graalvm-ce-*
+```
+
+Point your `JAVA_HOME` and `GRAALVM_HOME` env variables are set to point to it.  
+Example (in your `.bashrc` or `.zshrc`):
+```
+export GRAALVM_HOME=/Library/Java/JavaVirtualMachines/graalvm-ce-<YOUR_GRAALVM_VERSION>/Contents/Home
+export JAVA_HOME=$GRAALVM_HOME
+```
 
 To compile, test and produce a .jar (not a native binary):
 
