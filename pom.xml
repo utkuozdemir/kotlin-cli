@@ -3,9 +3,93 @@
   xmlns="http://maven.apache.org/POM/4.0.0"
   xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
 
+  <modelVersion>4.0.0</modelVersion>
+
+  <groupId>org.utkuozdemir</groupId>
   <artifactId>kotlin-cli</artifactId>
+  <version>0.1.0</version>
+  <packaging>jar</packaging>
+
+  <name>kotlin-cli</name>
+
+  <properties>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <main-class>org.utkuozdemir.MainKt</main-class>
+    <kotlin.version>1.6.10</kotlin.version>
+    <kotlin.code.style>official</kotlin.code.style>
+    <kotlin.compiler.incremental>true</kotlin.compiler.incremental>
+    <clikt.version>3.3.0</clikt.version>
+    <graalvm-native.version>0.9.8</graalvm-native.version>
+    <junit-jupiter.version>5.8.2</junit-jupiter.version>
+    <junit-platform-launcher.version>1.8.2</junit-platform-launcher.version>
+    <!-- Need to use 3.X for the native tests to work -->
+    <maven-surefire-plugin.version>3.0.0-M5</maven-surefire-plugin.version>
+    <detekt-maven-plugin.version>1.19.1</detekt-maven-plugin.version>
+    <maven-assembly-plugin.version>3.3.0</maven-assembly-plugin.version>
+  </properties>
+
+  <licenses>
+    <license>
+      <name>MIT License</name>
+      <url>https://www.opensource.org/licenses/mit-license.php</url>
+      <distribution>repo</distribution>
+    </license>
+  </licenses>
+
+  <developers>
+    <developer>
+      <id>utku</id>
+      <name>Utku Ozdemir</name>
+      <email>uoz@protonmail.com</email>
+    </developer>
+  </developers>
+
+  <dependencies>
+    <dependency>
+      <artifactId>kotlin-stdlib-jdk8</artifactId>
+      <groupId>org.jetbrains.kotlin</groupId>
+      <version>${kotlin.version}</version>
+    </dependency>
+    <dependency>
+      <artifactId>clikt-jvm</artifactId>
+      <groupId>com.github.ajalt.clikt</groupId>
+      <version>${clikt.version}</version>
+    </dependency>
+    <dependency>
+      <artifactId>junit-jupiter-api</artifactId>
+      <groupId>org.junit.jupiter</groupId>
+      <scope>test</scope>
+      <version>${junit-jupiter.version}</version>
+    </dependency>
+    <dependency>
+      <artifactId>junit-jupiter-engine</artifactId>
+      <groupId>org.junit.jupiter</groupId>
+      <scope>test</scope>
+      <version>${junit-jupiter.version}</version>
+    </dependency>
+    <dependency>
+      <artifactId>junit-jupiter-params</artifactId>
+      <groupId>org.junit.jupiter</groupId>
+      <scope>test</scope>
+      <version>${junit-jupiter.version}</version>
+    </dependency>
+    <dependency>
+      <artifactId>junit-platform-launcher</artifactId>
+      <groupId>org.junit.platform</groupId>
+      <scope>test</scope>
+      <version>${junit-platform-launcher.version}</version>
+    </dependency>
+    <dependency>
+      <artifactId>junit-platform-native</artifactId>
+      <groupId>org.graalvm.buildtools</groupId>
+      <scope>test</scope>
+      <version>${graalvm-native.version}</version>
+    </dependency>
+  </dependencies>
 
   <build>
+    <sourceDirectory>src/main/kotlin</sourceDirectory>
+    <testSourceDirectory>src/test/kotlin</testSourceDirectory>
     <plugins>
       <plugin>
         <artifactId>kotlin-maven-plugin</artifactId>
@@ -13,7 +97,6 @@
           <args>
             <arg>-jvm-target=17</arg>
           </args>
-
         </configuration>
         <executions>
           <execution>
@@ -78,58 +161,7 @@
         <version>${detekt-maven-plugin.version}</version>
       </plugin>
     </plugins>
-    <sourceDirectory>src/main/kotlin</sourceDirectory>
-
-    <testSourceDirectory>src/test/kotlin</testSourceDirectory>
   </build>
-  <dependencies>
-    <dependency>
-      <artifactId>kotlin-stdlib-jdk8</artifactId>
-      <groupId>org.jetbrains.kotlin</groupId>
-      <version>${kotlin.version}</version>
-    </dependency>
-    <dependency>
-      <artifactId>clikt-jvm</artifactId>
-      <groupId>com.github.ajalt.clikt</groupId>
-      <version>${clikt.version}</version>
-    </dependency>
-    <dependency>
-      <artifactId>junit-jupiter-api</artifactId>
-      <groupId>org.junit.jupiter</groupId>
-      <scope>test</scope>
-      <version>${junit-jupiter.version}</version>
-    </dependency>
-    <dependency>
-      <artifactId>junit-jupiter-engine</artifactId>
-      <groupId>org.junit.jupiter</groupId>
-      <scope>test</scope>
-      <version>${junit-jupiter.version}</version>
-    </dependency>
-    <dependency>
-      <artifactId>junit-jupiter-params</artifactId>
-      <groupId>org.junit.jupiter</groupId>
-      <scope>test</scope>
-      <version>${junit-jupiter.version}</version>
-    </dependency>
-    <dependency>
-      <artifactId>junit-platform-launcher</artifactId>
-      <groupId>org.junit.platform</groupId>
-      <scope>test</scope>
-      <version>${junit-platform-launcher.version}</version>
-    </dependency>
-    <dependency>
-      <artifactId>junit-platform-native</artifactId>
-      <groupId>org.graalvm.buildtools</groupId>
-      <scope>test</scope>
-      <version>${graalvm-native.version}</version>
-    </dependency>
-  </dependencies>
-  <groupId>org.utkuozdemir</groupId>
-  <modelVersion>4.0.0</modelVersion>
-
-  <name>kotlin-cli</name>
-
-  <packaging>jar</packaging>
 
   <profiles>
     <profile>
@@ -170,23 +202,4 @@
       <id>native</id>
     </profile>
   </profiles>
-
-  <properties>
-    <clikt.version>3.3.0</clikt.version>
-    <detekt-maven-plugin.version>1.19.1</detekt-maven-plugin.version>
-    <graalvm-native.version>0.9.8</graalvm-native.version>
-    <junit-jupiter.version>5.8.2</junit-jupiter.version>
-    <junit-platform-launcher.version>1.8.2</junit-platform-launcher.version>
-    <kotlin.code.style>official</kotlin.code.style>
-    <kotlin.compiler.incremental>true</kotlin.compiler.incremental>
-    <kotlin.version>1.6.10</kotlin.version>
-    <main-class>org.utkuozdemir.MainKt</main-class>
-    <maven-assembly-plugin.version>3.3.0</maven-assembly-plugin.version>
-    <maven-surefire-plugin.version>3.0.0-M5</maven-surefire-plugin.version>
-    <!-- Need to use 3.X for the native tests to work -->
-    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-  </properties>
-
-  <version>0.1.0</version>
-
 </project>
