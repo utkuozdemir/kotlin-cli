@@ -40,7 +40,7 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-maven-
       - name: Build
-        run: ./mvnw clean package
+        run: ./mvnw -P native clean package
       - name: Test application
         run: |
           ./target/kotlin-cli file-io
