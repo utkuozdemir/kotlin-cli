@@ -18,7 +18,7 @@
     <kotlin.version>1.6.20</kotlin.version>
     <kotlin.code.style>official</kotlin.code.style>
     <kotlin.compiler.incremental>true</kotlin.compiler.incremental>
-    <clikt.version>3.4.0</clikt.version>
+    <clikt.version>3.4.1</clikt.version>
     <graalvm-native.version>0.9.11</graalvm-native.version>
     <junit-jupiter.version>5.8.2</junit-jupiter.version>
     <junit-platform-launcher.version>1.8.2</junit-platform-launcher.version>
