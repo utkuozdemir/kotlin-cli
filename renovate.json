@@ -4,7 +4,7 @@
     ":automergeBranch",
     ":automergeMinor",
     ":automergeDigest",
-    ":disableDependencyDashboard"
+    ":semanticCommitTypeAll(chore)"
   ],
   "packageRules": [
     {
@@ -27,6 +27,18 @@
         ".github/workflows/**"
       ],
       "groupName": "github actions"
+    }
+  ],
+  "regexManagers": [
+    {
+      "fileMatch": [
+        "\\.github\\/workflows\\/.*"
+      ],
+      "matchStrings": [
+        "# renovate: depName=(?<depName>[^\\s]+)( datasource=(?<datasource>[^\\s]+))?( extractVersion=(?<extractVersion>\\S+))?\\n[^\\n]*?(?<currentValue>v?\\d+\\.\\d+\\.\\d+(-[\\S]+)?)"
+      ],
+      "datasourceTemplate": "{{#if datasource}}{{{datasource}}}{{else}}github-tags{{/if}}",
+      "versioningTemplate": "{{#if versioning}}{{{versioning}}}{{else}}semver{{/if}}"
     }
   ]
 }
