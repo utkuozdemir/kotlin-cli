@@ -31,7 +31,7 @@ jobs:
       - uses: DeLaGuardo/setup-graalvm@5.0
         with:
           # renovate: depName=graalvm/graalvm-ce-builds datasource=github-releases extractVersion=^vm-(?<version>\d+\.\d+\.\d+)$
-          graalvm: 22.1.0
+          graalvm: 21.3.2
           java: java17
       - name: Cache local Maven repository
         uses: actions/cache@v3.0.4
