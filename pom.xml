@@ -19,7 +19,7 @@
     <kotlin.code.style>official</kotlin.code.style>
     <kotlin.compiler.incremental>true</kotlin.compiler.incremental>
     <clikt.version>3.5.0</clikt.version>
-    <graalvm-native.version>0.9.11</graalvm-native.version>
+    <graalvm-native.version>0.9.12</graalvm-native.version>
     <junit-jupiter.version>5.8.2</junit-jupiter.version>
     <junit-platform-launcher.version>1.8.2</junit-platform-launcher.version>
     <!-- Need to use 3.X for the native tests to work -->
@@ -46,44 +46,44 @@
 
   <dependencies>
     <dependency>
-      <artifactId>kotlin-stdlib-jdk8</artifactId>
       <groupId>org.jetbrains.kotlin</groupId>
+      <artifactId>kotlin-stdlib-jdk8</artifactId>
       <version>${kotlin.version}</version>
     </dependency>
     <dependency>
-      <artifactId>clikt-jvm</artifactId>
       <groupId>com.github.ajalt.clikt</groupId>
+      <artifactId>clikt-jvm</artifactId>
       <version>${clikt.version}</version>
     </dependency>
     <dependency>
+      <groupId>org.junit.jupiter</groupId>
       <artifactId>junit-jupiter-api</artifactId>
-      <groupId>org.junit.jupiter</groupId>
-      <scope>test</scope>
       <version>${junit-jupiter.version}</version>
+      <scope>test</scope>
     </dependency>
     <dependency>
+      <groupId>org.junit.jupiter</groupId>
       <artifactId>junit-jupiter-engine</artifactId>
-      <groupId>org.junit.jupiter</groupId>
-      <scope>test</scope>
       <version>${junit-jupiter.version}</version>
+      <scope>test</scope>
     </dependency>
     <dependency>
+      <groupId>org.junit.jupiter</groupId>
       <artifactId>junit-jupiter-params</artifactId>
-      <groupId>org.junit.jupiter</groupId>
-      <scope>test</scope>
       <version>${junit-jupiter.version}</version>
+      <scope>test</scope>
     </dependency>
     <dependency>
-      <artifactId>junit-platform-launcher</artifactId>
       <groupId>org.junit.platform</groupId>
-      <scope>test</scope>
+      <artifactId>junit-platform-launcher</artifactId>
       <version>${junit-platform-launcher.version}</version>
+      <scope>test</scope>
     </dependency>
     <dependency>
-      <artifactId>junit-platform-native</artifactId>
       <groupId>org.graalvm.buildtools</groupId>
-      <scope>test</scope>
+      <artifactId>junit-platform-native</artifactId>
       <version>${graalvm-native.version}</version>
+      <scope>test</scope>
     </dependency>
   </dependencies>
 
@@ -92,7 +92,9 @@
     <testSourceDirectory>src/test/kotlin</testSourceDirectory>
     <plugins>
       <plugin>
+        <groupId>org.jetbrains.kotlin</groupId>
         <artifactId>kotlin-maven-plugin</artifactId>
+        <version>${kotlin.version}</version>
         <configuration>
           <args>
             <arg>-jvm-target=17</arg>
@@ -100,30 +102,30 @@
         </configuration>
         <executions>
           <execution>
+            <id>compile</id>
+            <phase>compile</phase>
             <goals>
               <goal>compile</goal>
             </goals>
-            <id>compile</id>
-            <phase>compile</phase>
           </execution>
           <execution>
+            <id>test-compile</id>
+            <phase>test-compile</phase>
             <goals>
               <goal>test-compile</goal>
             </goals>
-            <id>test-compile</id>
-            <phase>test-compile</phase>
           </execution>
         </executions>
-        <groupId>org.jetbrains.kotlin</groupId>
-        <version>${kotlin.version}</version>
       </plugin>
       <plugin>
-        <artifactId>maven-surefire-plugin</artifactId>
         <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-surefire-plugin</artifactId>
         <version>${maven-surefire-plugin.version}</version>
       </plugin>
       <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-assembly-plugin</artifactId>
+        <version>${maven-assembly-plugin.version}</version>
         <configuration>
           <appendAssemblyId>false</appendAssemblyId>
           <archive>
@@ -137,18 +139,18 @@
         </configuration>
         <executions>
           <execution>
+            <id>make-assembly</id>
+            <phase>package</phase>
             <goals>
               <goal>single</goal>
             </goals>
-            <id>make-assembly</id>
-            <phase>package</phase>
           </execution>
         </executions>
-        <groupId>org.apache.maven.plugins</groupId>
-        <version>${maven-assembly-plugin.version}</version>
       </plugin>
       <plugin>
+        <groupId>com.github.ozsie</groupId>
         <artifactId>detekt-maven-plugin</artifactId>
+        <version>${detekt-maven-plugin.version}</version>
         <executions>
           <execution>
             <goals>
@@ -157,18 +159,20 @@
             <phase>verify</phase>
           </execution>
         </executions>
-        <groupId>com.github.ozsie</groupId>
-        <version>${detekt-maven-plugin.version}</version>
       </plugin>
     </plugins>
   </build>
 
   <profiles>
     <profile>
+      <id>native</id>
       <build>
         <plugins>
           <plugin>
+            <groupId>org.graalvm.buildtools</groupId>
             <artifactId>native-maven-plugin</artifactId>
+            <version>${graalvm-native.version}</version>
+            <extensions>true</extensions>
             <configuration>
               <buildArgs>
                 <buildArg>--no-fallback</buildArg>
@@ -179,27 +183,25 @@
             </configuration>
             <executions>
               <execution>
+                <id>build-native</id>
+                <phase>package</phase>
                 <goals>
                   <goal>build</goal>
                 </goals>
-                <id>build-native</id>
-                <phase>package</phase>
               </execution>
               <execution>
+                <id>test-native</id>
+                <!-- We cannot use the "test" phase here since the .jar file is not ready yet. -->
+                <!-- See: https://graalvm.github.io/native-build-tools/latest/maven-plugin.html#long_classpath_and_shading_support -->
+                <phase>integration-test</phase>
                 <goals>
                   <goal>test</goal>
                 </goals>
-                <id>test-native</id>
-                <phase>test</phase>
               </execution>
             </executions>
-            <extensions>true</extensions>
-            <groupId>org.graalvm.buildtools</groupId>
-            <version>${graalvm-native.version}</version>
           </plugin>
         </plugins>
       </build>
-      <id>native</id>
     </profile>
   </profiles>
 </project>
