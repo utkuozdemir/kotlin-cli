@@ -12,7 +12,7 @@ with great features and a strong standard library.
 
 One of the most exciting things going on in the Java world is [GraalVM](https://www.graalvm.org/)
 and especially [GraalVM Native Image](https://www.graalvm.org/reference-manual/native-image/). It
-compiles Java Bytecode ahead-of-time to produce statically linked binaries similar to Go.
+compiles Java Bytecode ahead-of-time to produce native (& optionally statically linked) binaries similar to Go.
 
 In this project, I write a simple CLI application in Kotlin and compile it using GraalVM Native
 Image, trying to get the best of both worlds - write Kotlin, get Go-like binaries.
