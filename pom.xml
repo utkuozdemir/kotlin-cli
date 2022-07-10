@@ -26,6 +26,7 @@
     <maven-surefire-plugin.version>3.0.0-M7</maven-surefire-plugin.version>
     <detekt-maven-plugin.version>1.20.0</detekt-maven-plugin.version>
     <maven-assembly-plugin.version>3.3.0</maven-assembly-plugin.version>
+    <native-build.args>--no-fallback</native-build.args>
   </properties>
 
   <licenses>
@@ -165,6 +166,19 @@
 
   <profiles>
     <profile>
+      <id>linux</id>
+      <properties>
+        <!-- Create a statically-linked executable -->
+        <native-build.args>--static --no-fallback</native-build.args>
+      </properties>
+      <activation>
+        <os>
+          <family>unix</family>
+          <name>Linux</name>
+        </os>
+      </activation>
+    </profile>
+    <profile>
       <id>native</id>
       <build>
         <plugins>
@@ -175,7 +189,7 @@
             <extensions>true</extensions>
             <configuration>
               <buildArgs>
-                <buildArg>--no-fallback</buildArg>
+                <buildArg>${native-build.args}</buildArg>
               </buildArgs>
               <imageName>${project.artifactId}</imageName>
               <mainClass>${main-class}</mainClass>

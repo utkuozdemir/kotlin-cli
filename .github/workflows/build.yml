@@ -46,6 +46,7 @@ jobs:
         run: ./mvnw --no-transfer-progress -P native clean verify
       - name: Test application
         run: |
+          file ./target/kotlin-cli
           ./target/kotlin-cli file-io
           ./target/kotlin-cli network-io --url https://utkuozdemir.org
           ./target/kotlin-cli data-class
