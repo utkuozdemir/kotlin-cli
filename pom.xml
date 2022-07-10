@@ -15,7 +15,7 @@
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <main-class>org.utkuozdemir.MainKt</main-class>
-    <kotlin.version>1.7.0</kotlin.version>
+    <kotlin.version>1.7.10</kotlin.version>
     <kotlin.code.style>official</kotlin.code.style>
     <kotlin.compiler.incremental>true</kotlin.compiler.incremental>
     <clikt.version>3.5.0</clikt.version>
@@ -25,7 +25,7 @@
     <!-- Need to use 3.X for the native tests to work -->
     <maven-surefire-plugin.version>3.0.0-M7</maven-surefire-plugin.version>
     <detekt-maven-plugin.version>1.20.0</detekt-maven-plugin.version>
-    <maven-assembly-plugin.version>3.3.0</maven-assembly-plugin.version>
+    <maven-assembly-plugin.version>3.4.1</maven-assembly-plugin.version>
     <native-build.args>--no-fallback</native-build.args>
   </properties>
 
