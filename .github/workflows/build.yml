@@ -43,7 +43,7 @@ jobs:
       - name: Build
         # Run the "verify" target so that the "integration-test" phase is run which contains the native tests
         # See: https://maven.apache.org/guides/introduction/introduction-to-the-lifecycle.html#default-lifecycle
-        run: ./mvnw --no-transfer-progress -P native clean verify
+        run: ./mvnw -Dstyle.color=always --no-transfer-progress -P native clean verify
       - name: Test application
         run: |
           file ./target/kotlin-cli
