@@ -194,6 +194,9 @@
               <imageName>${project.artifactId}</imageName>
               <mainClass>${main-class}</mainClass>
               <skip>false</skip>
+              <metadataRepository>
+                <enabled>true</enabled>
+              </metadataRepository>
             </configuration>
             <executions>
               <execution>
