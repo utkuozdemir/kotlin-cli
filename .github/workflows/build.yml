@@ -27,7 +27,7 @@ jobs:
     runs-on: ubuntu-20.04
     steps:
       - name: Checkout
-        uses: actions/checkout@v3.2.0
+        uses: actions/checkout@v3.3.0
       - uses: DeLaGuardo/setup-graalvm@5.0
         with:
           # renovate: depName=graalvm/graalvm-ce-builds datasource=github-releases extractVersion=^vm-(?<version>\d+\.\d+\.\d+)$
