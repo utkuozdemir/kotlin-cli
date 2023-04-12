@@ -19,7 +19,7 @@
     <kotlin.code.style>official</kotlin.code.style>
     <kotlin.compiler.incremental>true</kotlin.compiler.incremental>
     <clikt.version>3.5.2</clikt.version>
-    <graalvm-native.version>0.9.20</graalvm-native.version>
+    <graalvm-native.version>0.9.21</graalvm-native.version>
     <junit-jupiter.version>5.9.2</junit-jupiter.version>
     <junit-platform-launcher.version>1.9.2</junit-platform-launcher.version>
     <!-- Need to use 3.X for the native tests to work -->
