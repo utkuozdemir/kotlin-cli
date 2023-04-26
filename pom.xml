@@ -20,8 +20,8 @@
     <kotlin.compiler.incremental>true</kotlin.compiler.incremental>
     <clikt.version>3.5.2</clikt.version>
     <graalvm-native.version>0.9.21</graalvm-native.version>
-    <junit-jupiter.version>5.9.2</junit-jupiter.version>
-    <junit-platform-launcher.version>1.9.2</junit-platform-launcher.version>
+    <junit-jupiter.version>5.9.3</junit-jupiter.version>
+    <junit-platform-launcher.version>1.9.3</junit-platform-launcher.version>
     <!-- Need to use 3.X for the native tests to work -->
     <maven-surefire-plugin.version>3.0.0</maven-surefire-plugin.version>
     <detekt-maven-plugin.version>1.22.0</detekt-maven-plugin.version>
