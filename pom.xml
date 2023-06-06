@@ -23,7 +23,7 @@
     <junit-jupiter.version>5.9.3</junit-jupiter.version>
     <junit-platform-launcher.version>1.9.3</junit-platform-launcher.version>
     <!-- Need to use 3.X for the native tests to work -->
-    <maven-surefire-plugin.version>3.1.0</maven-surefire-plugin.version>
+    <maven-surefire-plugin.version>3.1.2</maven-surefire-plugin.version>
     <detekt-maven-plugin.version>1.22.0</detekt-maven-plugin.version>
     <maven-assembly-plugin.version>3.6.0</maven-assembly-plugin.version>
     <native-build.args>--no-fallback</native-build.args>
