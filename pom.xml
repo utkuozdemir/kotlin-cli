@@ -98,7 +98,7 @@
         <version>${kotlin.version}</version>
         <configuration>
           <args>
-            <arg>-jvm-target=22</arg>
+            <arg>-jvm-target=21</arg>
           </args>
         </configuration>
         <executions>
