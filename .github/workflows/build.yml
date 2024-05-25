@@ -28,11 +28,11 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@a5ac7e51b41094c92402da3b24376905380afc29 # v4.1.6
-      - uses: DeLaGuardo/setup-graalvm@5.0
+      - uses: graalvm/setup-graalvm@v1
         with:
-          # renovate: depName=graalvm/graalvm-ce-builds datasource=github-releases extractVersion=^vm-(?<version>\d+\.\d+\.\d+)$
-          graalvm: 22.3.3
-          java: java17
+          java-version: "21"
+          distribution: "graalvm"
+          github-token: ${{ secrets.GITHUB_TOKEN }}
       - name: Cache local Maven repository
         uses: actions/cache@v4.0.2
         with:
