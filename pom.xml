@@ -169,7 +169,7 @@
       <id>linux</id>
       <properties>
         <!-- Create a statically-linked executable -->
-        <native-build.args>--static --no-fallback</native-build.args>
+        <native-build.args>--static --no-fallback --strict-image-heap</native-build.args>
       </properties>
       <activation>
         <os>
